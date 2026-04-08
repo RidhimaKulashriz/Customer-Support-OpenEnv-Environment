@@ -1,26 +1,25 @@
 
 # Customer Support OpenEnv Environment
 
-[![OpenEnv](https://img.shields.io/badge/OpenEnv-Compatible-green)](https://github.com/facebookresearch/openenv)
-[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Transformers-yellow)](https://huggingface.co)
-[![Python](https://img.shields.io/badge/Python-3.11-blue)](https://python.org)
-
 ## Overview
-
-An AI-powered customer support environment built for the Meta OpenEnv Hackathon. This environment simulates real-world customer service scenarios where AI agents must classify queries, determine priority, and suggest appropriate solutions.
+An AI-powered customer support environment built for the Meta OpenEnv Hackathon. This environment simulates real-world customer service scenarios where AI agents classify queries, determine priority, and suggest appropriate solutions.
 
 **Baseline Score: 86% (8.6/10)**
 
+## Links
+- **Live Demo**: https://huggingface.co/spaces/RidhimaKulashriz/openenv-customer-support-ai
+- **GitHub Repository**: https://github.com/RidhimaKulashriz/Customer-Support-OpenEnv-Environment
+- **OpenEnv Validation**: PASSED
+
 ## Features
+- 10 Real-World Customer Support Tasks
+- OpenEnv Compliant Interface
+- Hugging Face BART Model for Zero-Shot Classification
+- Gradio Web Interface for Easy Testing
+- Deterministic Grading System (0.0-1.0 scale)
+- Docker Container Ready
 
-- 10 Real-World Tasks - Payment issues, account management, technical bugs, delivery tracking, and more
-- OpenEnv Compliant - Fully implements the OpenEnv interface specification
-- Hugging Face Integration - Uses BART model for zero-shot classification
-- Web Interface - Gradio-powered UI for easy testing
-- Deterministic Grading - Clear reward system (0.0-1.0 scale)
-- Docker Ready - Deployable to Hugging Face Spaces
-
-## Performance
+## Performance Results
 
 | Metric | Score |
 |--------|-------|
@@ -44,34 +43,28 @@ An AI-powered customer support environment built for the Meta OpenEnv Hackathon.
 | 9 | Discount code | 0.40 |
 | 10 | Payment page error | 0.60 |
 
-## Tasks Description
-
-The environment includes 10 customer support tasks with increasing difficulty:
-
-- **Easy**: Payment failure, password reset, email change
-- **Medium**: Delivery tracking, slow loading, subscription cancellation
-- **Hard**: Double charges, discount code issues, payment page errors
+## Task Categories
+- payment - Payment and billing issues
+- account - Account management and access
+- bug - Technical problems and crashes
+- delivery - Order and shipping status
+- performance - Speed and loading issues
+- promotion - Discount codes and offers
 
 ## Installation
 
 ### Prerequisites
 - Python 3.11+
-- Hugging Face account and API token
+- Hugging Face account with API token
 
 ### Setup
-
-1. Clone the repository:
 ```bash
 git clone https://github.com/RidhimaKulashriz/Customer-Support-OpenEnv-Environment.git
 cd Customer-Support-OpenEnv-Environment
-```
-
-2. Install dependencies:
-```bash
 pip install -r requirements.txt
 ```
 
-3. Set your Hugging Face token:
+### Set Environment Variable
 ```bash
 # Windows PowerShell
 $env:HF_TOKEN="your_token_here"
@@ -82,12 +75,12 @@ export HF_TOKEN="your_token_here"
 
 ## Usage
 
-### Run the Hugging Face Agent
+### Run Hugging Face Agent
 ```bash
 python inference_hf.py
 ```
 
-### Run the Baseline Agent
+### Run Baseline Agent
 ```bash
 python inference.py
 ```
@@ -96,24 +89,32 @@ python inference.py
 ```bash
 python server/app.py
 ```
-Then open http://localhost:7860 in your browser
-
-### Test Environment
-```bash
-python test_env.py
-```
+Then open http://localhost:7860
 
 ### Validate OpenEnv Compliance
 ```bash
 openenv validate
 ```
 
-## Project Structure
+## Grading System
 
+The reward function evaluates three aspects:
+- Category correctness: 0.4 points
+- Priority correctness: 0.2 points
+- Solution correctness: 0.4 points
+
+Maximum reward per task: 1.0
+
+## Model Details
+- **Model**: facebook/bart-large-mnli
+- **Type**: Zero-shot classification
+- **Categories**: payment, account, bug, delivery, performance, promotion
+- **Inference**: CPU (configurable to GPU)
+
+## Project Structure
 ```
 Customer-Support-OpenEnv-Environment/
 ├── env/
-│   ├── __init__.py
 │   ├── environment.py    # Main environment class
 │   ├── models.py         # Pydantic models
 │   ├── tasks.py          # 10 support tasks
@@ -130,39 +131,18 @@ Customer-Support-OpenEnv-Environment/
 └── README.md
 ```
 
-## Grading System
-
-The reward function evaluates three aspects:
-- Category correctness: 0.4 points
-- Priority correctness: 0.2 points
-- Solution correctness: 0.4 points
-
-Maximum reward per task: 1.0
-
-## Model Details
-
-- **Model**: facebook/bart-large-mnli
-- **Type**: Zero-shot classification
-- **Categories**: payment, account, bug, delivery, performance, promotion
-- **Inference**: CPU (can be switched to GPU)
-
 ## Deployment
 
-### Deploy to Hugging Face Spaces
+### Deployed on Hugging Face Spaces
+The environment is live at: https://huggingface.co/spaces/RidhimaKulashriz/openenv-customer-support-ai
 
-1. Create a new Space at https://huggingface.co/new-space
-2. Select Docker as SDK
-3. Connect your GitHub repository
-4. Add HF_TOKEN as a secret
-5. Click Create Space
-
-### Docker Build
+### Local Docker Build
 ```bash
 docker build -t customer-support-env .
 docker run -p 7860:7860 -e HF_TOKEN="your_token" customer-support-env
 ```
 
-## Results
+## Results Summary
 
 The Hugging Face agent achieves:
 - 86% average reward across all tasks
@@ -170,16 +150,22 @@ The Hugging Face agent achieves:
 - Accurate priority detection
 - Appropriate solution suggestions
 
-## Contributing
-
-This project was created for the Meta OpenEnv Hackathon.
+## OpenEnv Compliance
+- [x] Real-world task simulation
+- [x] OpenEnv specification compliance
+- [x] Minimum 3 tasks with graders
+- [x] Meaningful reward function
+- [x] Baseline inference script
+- [x] Containerized execution
+- [x] Complete documentation
 
 ## License
-
 MIT
 
-## Links
+## Author
+Ridhima Kulashri
 
-- GitHub Repository: https://github.com/RidhimaKulashriz/Customer-Support-OpenEnv-Environment
-- Hugging Face Space: https://huggingface.co/spaces/RidhimaKulashriz/customer-support-openenv
-- OpenEnv Documentation: https://github.com/facebookresearch/openenv
+## Acknowledgments
+- Meta OpenEnv Hackathon
+- Hugging Face for transformers library
+- Facebook AI for BART model
