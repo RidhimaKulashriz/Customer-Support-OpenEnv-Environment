@@ -1,0 +1,13 @@
+name: customer-support-env
+
+task: support_task
+
+model:
+  provider: openai
+  name: ${MODEL_NAME}
+
+environment:
+  python: 3.11
+
+entrypoint:
+  command: python inference.py
